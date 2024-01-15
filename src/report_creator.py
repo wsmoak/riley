@@ -4,6 +4,7 @@
 # plus all of the entities and attributes sorted alphabetically
 
 import pandas as pd
+from weasyprint import HTML, CSS
 
 class ReportCreator:
 
@@ -44,5 +45,6 @@ class ReportCreator:
                     lines.append(f" | {notes}")
                 lines.append("</p>")
 
-
-        print(lines);
+        html_string = ''.join(lines)
+        css = CSS(string="@page { size: A4 landscape; }")
+        HTML(string=html_string).write_pdf("output.pdf", stylesheets=[css])
