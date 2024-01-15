@@ -18,14 +18,12 @@ class ReportCreator:
             entities_filename += "-{date}"
         entities_filename += ".csv"
         entities_df = pd.read_csv(entities_filename, sep=';', na_filter=False)
-        entities_df.sort_values('Label', inplace=True)
 
         attributes_filename = f"{account}-{model_name}-attributes"
         if date:
             attributes_filename += f"-{date}"
         attributes_filename += ".csv"
         attributes_df = pd.read_csv(attributes_filename, sep=';', na_filter=False)
-        attributes_df.sort_values(['Entity label', 'Attribute label'], inplace=True)
 
         lines = []
         for _index, row in entities_df.iterrows():
@@ -66,7 +64,6 @@ class ReportCreator:
           output_filename = f"-{date}"
         input_filename += ".pdf"
         output_filename += "-report.pdf"
-        print(f"output filename is {output_filename}")
 
         merger = PdfMerger()
         merger.append(PdfReader(input_filename))
