@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "riley"
+version = "2024.1.0"
+dependencies = [
+  "pandas",
+]
+requires-python = ">=3.8"
+authors = [
+  {name = "Wendy Smoak", email = "wsmoak@gmail.com"},
+]
+maintainers = [
+  {name = "Wendy Smoak", email = "wsmoak@gmail.com"}
+]
+description = "Utilities for working with export files from Ellie.ai"
+readme = "README.md"
+license = {file = "LICENSE.html"}
+keywords = ["ellie"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[project.optional-dependencies]
+cli = [
+  "rich",
+  "click",
+]
+
+[project.urls]
+Repository = "https://github.com/wsmoak/riley.git"
+"Bug Tracker" = "https://github.com/wsmoak/riley/issues"
+
+[project.scripts]
+riley-cli = "riley:main_cli"
+
+[project.entry-points."spam.magical"]
+report = "riley:main_report"
