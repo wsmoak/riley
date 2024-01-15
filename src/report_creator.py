@@ -13,11 +13,17 @@ class ReportCreator:
 
     def perform(account, model_name, date):
 
-        entities_filename = f"{account}-{model_name}-entities-{date}.csv"
+        entities_filename = f"{account}-{model_name}-entities"
+        if date:
+            entities_filename += "-{date}"
+        entities_filename += ".csv"
         entities_df = pd.read_csv(entities_filename, sep=';', na_filter=False)
         entities_df.sort_values('Label', inplace=True)
 
-        attributes_filename = f"{account}-{model_name}-attributes-{date}.csv"
+        attributes_filename = f"{account}-{model_name}-attributes"
+        if date:
+            attributes_filename += f"-{date}"
+        attributes_filename += ".csv"
         attributes_df = pd.read_csv(attributes_filename, sep=';', na_filter=False)
         attributes_df.sort_values(['Entity label', 'Attribute label'], inplace=True)
 
@@ -53,8 +59,14 @@ class ReportCreator:
         pdf_bytes = HTML(string=html_string).write_pdf(stylesheets=[css])
         pdf_buffer = BytesIO(pdf_bytes)
 
-        input_filename = f"{account}-{model_name}-{date}.pdf"
-        output_filename = f"{account}-{model_name}-{date}-report.pdf"
+        input_filename = f"{account}-{model_name}"
+        output_filename = f"{account}-{model_name}"
+        if date:
+          input_filename += f"-{date}"
+          output_filename = f"-{date}"
+        input_filename += ".pdf"
+        output_filename += "-report.pdf"
+        print(f"output filename is {output_filename}")
 
         merger = PdfMerger()
         merger.append(PdfReader(input_filename))
