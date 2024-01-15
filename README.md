@@ -4,6 +4,12 @@ Ellie's best friend.  A Python package of useful code for working with the
 PDF and CSV export files from the [Ellie.ai](https://www.ellie.ai/)
 data modeling system.
 
+## Installation
+
+Clone the repository, change into the directory, and then `pip install -e .`
+
+This installs the package in editable mode, which allows you to modify the code without re-installing.
+
 ## Usage
 
 ```
