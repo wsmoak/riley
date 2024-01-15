@@ -1,10 +1,13 @@
 # Looks for PDF export of the model along with
-# the entities, attributes, and relationships CSV files
+# the CSV files for entities and attributes,
 # and produces a report with the model diagram
-# plus all of the entities and attributes sorted alphabetically
+# plus an alphabetical list of the each entity
+# with its attributes shown below it.
 
 import pandas as pd
 from weasyprint import HTML, CSS
+from io import BytesIO
+from PyPDF2 import PdfReader, PdfMerger
 
 class ReportCreator:
 
@@ -45,6 +48,15 @@ class ReportCreator:
                     lines.append(f" | {notes}")
                 lines.append("</p>")
 
-        html_string = ''.join(lines)
         css = CSS(string="@page { size: A4 landscape; }")
-        HTML(string=html_string).write_pdf("output.pdf", stylesheets=[css])
+        html_string = ''.join(lines)
+        pdf_bytes = HTML(string=html_string).write_pdf(stylesheets=[css])
+        pdf_buffer = BytesIO(pdf_bytes)
+
+        input_filename = f"{account}-{model_name}-{date}.pdf"
+        output_filename = f"{account}-{model_name}-{date}-report.pdf"
+
+        merger = PdfMerger()
+        merger.append(PdfReader(input_filename))
+        merger.append(pdf_buffer)
+        merger.write(output_filename)
