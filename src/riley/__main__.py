@@ -11,6 +11,5 @@ args = parser.parse_args()
 
 if args.command == "report":
     ReportCreator.perform(args.account, args.model, args.date)
-
-if args.command =="sort":
+elif args.command =="sort":
     FileSorter(args.account, args.model, args.date).perform()
