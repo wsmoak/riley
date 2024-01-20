@@ -4,9 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "riley"
-version = "2024.1.0"
+version = "0.0.1-dev"
 dependencies = [
   "pandas",
+  "PyPDF2",
+  "weasyprint",
 ]
 requires-python = ">=3.8"
 authors = [
