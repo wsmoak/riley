@@ -69,3 +69,4 @@ class ReportCreator:
         merger.append(PdfReader(input_filename))
         merger.append(pdf_buffer)
         merger.write(output_filename)
+        print("Success!")

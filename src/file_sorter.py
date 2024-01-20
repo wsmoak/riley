@@ -26,6 +26,7 @@ class FileSorter:
         relationships_df = pd.read_csv(self.relationships_filename, sep=';')
         relationships_df.sort_values(['Source entity label', 'Target entity label'], inplace=True)
         relationships_df.to_csv(self.relationships_filename, index=False, sep=';', quoting=csv.QUOTE_ALL)
+        print("Success!")
 
     def filename(self,item):
         filename = f"{self.account}-{self.model}-{item}"
