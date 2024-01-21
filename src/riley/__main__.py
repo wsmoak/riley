@@ -1,5 +1,4 @@
-from report_creator import ReportCreator
-from file_sorter import FileSorter
+from services import FileSorter, ReportCreator
 import argparse
 
 parser = argparse.ArgumentParser(prog='riley')
