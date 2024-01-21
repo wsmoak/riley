@@ -55,7 +55,7 @@ class ReportCreator:
 
         entities_filename = f"{account}-{model_name}-entities"
         if date:
-            entities_filename += "-{date}"
+            entities_filename += f"-{date}"
         entities_filename += ".csv"
         entities_df = pd.read_csv(entities_filename, sep=';', na_filter=False)
 
@@ -97,11 +97,10 @@ class ReportCreator:
         pdf_bytes = HTML(string=html_string).write_pdf(stylesheets=[css])
         pdf_buffer = BytesIO(pdf_bytes)
 
-        input_filename = f"{account}-{model_name}"
-        output_filename = f"{account}-{model_name}"
+        input_filename = output_filename = f"{account}-{model_name}"
         if date:
           input_filename += f"-{date}"
-          output_filename = f"-{date}"
+          output_filename += f"-{date}"
         input_filename += ".pdf"
         output_filename += "-report.pdf"
 
