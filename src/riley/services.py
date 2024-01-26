@@ -9,8 +9,7 @@ from weasyprint import HTML, CSS
 # the order of lines within the export csv file may change.
 class FileSorter:
 
-    def __init__(self,account,model,date):
-        self.account = account
+    def __init__(self, model, date):
         self.model = model
         self.date = date
         self.entities_filename = self.filename("entities")
@@ -32,9 +31,9 @@ class FileSorter:
         print("Success!")
 
     def filename(self,item):
-        filename = f"{self.account}-{self.model}-{item}"
+        filename = f"{self.model}_{item}"
         if self.date:
-            filename += f"-{self.date}"
+            filename += f"_{self.date}"
         filename += ".csv"
         return filename
 
@@ -51,17 +50,17 @@ class FileSorter:
 
 class ReportCreator:
 
-    def perform(account, model_name, date):
+    def perform(model_name, date):
 
-        entities_filename = f"{account}-{model_name}-entities"
+        entities_filename = f"{model_name}_entities"
         if date:
-            entities_filename += f"-{date}"
+            entities_filename += f"_{date}"
         entities_filename += ".csv"
         entities_df = pd.read_csv(entities_filename, sep=';', na_filter=False)
 
-        attributes_filename = f"{account}-{model_name}-attributes"
+        attributes_filename = f"{model_name}_attributes"
         if date:
-            attributes_filename += f"-{date}"
+            attributes_filename += f"_{date}"
         attributes_filename += ".csv"
         attributes_df = pd.read_csv(attributes_filename, sep=';', na_filter=False)
 
@@ -97,10 +96,10 @@ class ReportCreator:
         pdf_bytes = HTML(string=html_string).write_pdf(stylesheets=[css])
         pdf_buffer = BytesIO(pdf_bytes)
 
-        input_filename = output_filename = f"{account}-{model_name}"
+        input_filename = output_filename = f"{model_name}"
         if date:
-          input_filename += f"-{date}"
-          output_filename += f"-{date}"
+          input_filename += f"_{date}"
+          output_filename += f"_{date}"
         input_filename += ".pdf"
         output_filename += "-report.pdf"
 
