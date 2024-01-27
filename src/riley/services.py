@@ -68,8 +68,14 @@ class ReportCreator:
         lines = []
         for _index, row in entities_df.iterrows():
             entity_name = row['Label']
+            examples = row['Examples']
+            synonyms = row['Synonyms']
             lines.append(f"<h1>{entity_name}</h1>")
             lines.append(f"<p>{row['Description']}</p>")
+            if examples:
+                lines.append(f"<p>Examples: {examples}</p>")
+            if synonyms:
+                lines.append(f"<p>Synonyms: {synonyms}</p>")
             lines.append("<hr>")
 
             filtered_attributes_df = attributes_df.loc[attributes_df['Entity label'] == entity_name]
@@ -85,7 +91,12 @@ class ReportCreator:
                 column = row['Source column']
                 constraints = row['Constraints']
                 lines.append("<p>")
-                lines.append(f"{label} ({format}) {description}")
+                lines.append(f"{label}")
+                if format:
+                    lines.append(f" ({format}) ")
+                if not format and description:
+                    lines.append(" - ")
+                lines.append(f"{description}")
                 if table and column:
                     lines.append(f" | From {column} in {table}")
                     if constraints:
