@@ -1,4 +1,5 @@
 import csv
+from inflection import underscore
 from io import BytesIO
 import pandas as pd
 from PyPDF2 import PdfReader, PdfMerger
@@ -50,7 +51,7 @@ class FileSorter:
 
 class ReportCreator:
 
-    def perform(model_name, date):
+    def perform(model_name, date, filter_attributes_by_model):
 
         entities_filename = f"{model_name}_entities"
         if date:
@@ -72,6 +73,9 @@ class ReportCreator:
             lines.append("<hr>")
 
             filtered_attributes_df = attributes_df.loc[attributes_df['Entity label'] == entity_name]
+            if filter_attributes_by_model:
+                filtered_attributes_df = filtered_attributes_df.loc[attributes_df["Notes"].str.contains(underscore(model_name))]
+
             for _index, row in filtered_attributes_df.iterrows():
                 label = row['Attribute label']
                 format = row['Format']
