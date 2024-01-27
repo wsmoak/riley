@@ -107,6 +107,9 @@ class ReportCreator:
                     lines.append(f" | {note_part}")
                 lines.append("</p>")
 
+        if filter_attributes_by_model:
+            lines.append("<p>(Attributes are filtered by model)")
+
         css = CSS(string="@page { size: A4 landscape; }")
         html_string = ''.join(lines)
         pdf_bytes = HTML(string=html_string).write_pdf(stylesheets=[css])
