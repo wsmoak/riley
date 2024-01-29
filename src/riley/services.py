@@ -120,7 +120,7 @@ class ReportCreator:
           input_filename += f"_{date}"
           output_filename += f"_{date}"
         input_filename += ".pdf"
-        output_filename += "-report.pdf"
+        output_filename += "_report.pdf"
 
         merger = PdfMerger()
         merger.append(PdfReader(input_filename))
