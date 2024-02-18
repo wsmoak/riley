@@ -86,6 +86,8 @@ class ReportCreator:
                 description = row['Description']
                 note_parts = [part.strip() for part in row['Notes'].split('|') if part.strip().startswith('Note:')]
                 note_part = note_parts[0].replace("Note: ", "") if note_parts else None
+                example_parts = [part.strip() for part in row['Notes'].split('|') if part.strip().startswith('Examples:')]
+                example_part = example_parts[0] if example_parts else None
                 table = row['Source table']
                 column = row['Source column']
                 constraints = row['Constraints']
@@ -103,6 +105,8 @@ class ReportCreator:
                     lines.append(".")
                 if note_part:
                     lines.append(f" | {note_part}")
+                if example_part:
+                    lines.append(f" | {example_part}")
                 lines.append("</p>")
 
         css = CSS(string="@page { size: A4 landscape; }")
