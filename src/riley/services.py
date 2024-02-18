@@ -51,7 +51,7 @@ class FileSorter:
 
 class ReportCreator:
 
-    def perform(model_name, date, filter_attributes_by_model):
+    def perform(model_name, date):
 
         entities_filename = f"{model_name}_entities"
         if date:
@@ -79,8 +79,6 @@ class ReportCreator:
             lines.append("<hr>")
 
             filtered_attributes_df = attributes_df.loc[attributes_df['Entity label'] == entity_name]
-            if filter_attributes_by_model:
-                filtered_attributes_df = filtered_attributes_df.loc[attributes_df["Notes"].str.contains(underscore(model_name))]
 
             for _index, row in filtered_attributes_df.iterrows():
                 label = row['Attribute label']
@@ -106,9 +104,6 @@ class ReportCreator:
                 if note_part:
                     lines.append(f" | {note_part}")
                 lines.append("</p>")
-
-        if filter_attributes_by_model:
-            lines.append("<p>(Attributes are filtered by model)")
 
         css = CSS(string="@page { size: A4 landscape; }")
         html_string = ''.join(lines)
