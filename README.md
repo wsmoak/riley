@@ -13,12 +13,18 @@ This installs the package in editable mode, which allows you to modify the code 
 ## Usage
 
 ```
-python -m riley report --account wendy --model Store-Purchase --date 2024-01-14
+python -m riley report --model Store-Purchase_CM --date 2024-01-14_14-35
 ```
 
+Note that if the minute ticked over while you were exporting the files, you may need to rename them so the timestamps match.
+
 ```
-python -m riley sort --account wendy --model Store-Purchase
+python -m riley sort --model Store-Purchase
 ```
+
+If you have renamed the files to remove the date and time, omit the --date argument.
+
+The 'Notes' field on each attribute should be a pipe delimited list of items.  If an item is prefixed by 'Note: ' or 'Examples: ' then it will appear in the report.
 
 ```
 usage: riley [-h] [-a ACCOUNT] [-m MODEL] [-d DATE] {report,sort}
@@ -29,11 +35,9 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  -a ACCOUNT, --account ACCOUNT
-                        your Ellie.ai account name, the prefix of the export files
   -m MODEL, --model MODEL
                         the name of your Ellie model, with dashes instead of spaces, to construct the
                         filenames
-  -d DATE, --date DATE  the date in YYYY-MM-DD format, to construct the filenames. Optional in case you
+  -d DATE, --date DATE  the date in YYYY-MM-DD_HH-MM format, to construct the filenames. Optional in case you
                         rename the files without the date.
 ```
