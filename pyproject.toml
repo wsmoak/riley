@@ -5,6 +5,7 @@ dependencies = [
   "pandas",
   "PyPDF2",
   "weasyprint",
+  "inflection"
 ]
 requires-python = ">=3.8"
 authors = [
