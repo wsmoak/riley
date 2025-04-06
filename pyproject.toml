@@ -7,7 +7,7 @@ dependencies = [
   "weasyprint",
   "inflection"
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 authors = [
   {name = "Wendy Smoak", email = "wsmoak@gmail.com"},
 ]
@@ -26,3 +26,33 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/wsmoak/riley.git"
 "Bug Tracker" = "https://github.com/wsmoak/riley/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "ruff"
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+]
+ignore = []
+
+[tool.ruff.mccabe]
+max-complexity = 10
